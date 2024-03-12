@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, get_user_model
 from .forms import SignUpForm, LogInForm
 
 def home_page_view(request):
@@ -9,9 +9,14 @@ def home_page_view(request):
 
 def welcome(request):
     # Assuming the user is already authenticated
-    username = request.user.username
-    return render(request, 'welcome.html', {'username': username})
-
+    User = get_user_model()
+    if request.user.is_authenticated:
+        username = request.user.username
+        user_score = request.user.score  # Retrieve the user's score
+        return render(request, 'welcome.html', {'username': username, 'score': user_score})
+    else:
+        # Handle the case when the user is not authenticated
+        return render(request, 'not_authenticated.html')
 
 def signup(request):
     if request.method == 'POST':

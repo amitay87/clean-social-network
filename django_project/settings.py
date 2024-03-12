@@ -81,9 +81,14 @@ DATABASES = {
     }
 }
 
+# settings.py
+AUTH_USER_MODEL = 'pages.CustomUser'  # Replace 'yourappname' with the actual name of your app
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
